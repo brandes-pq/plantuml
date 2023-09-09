@@ -24,7 +24,7 @@ Redmine::Plugin.register :plantuml do
 EOF
     macro :plantuml do |obj, args, text|
       raise 'No PlantUML binary set.' if Setting.plugin_plantuml['plantuml_binary_default'].blank?
-      raise 'No or bad arguments.' if args.size != 1
+      args = ['svg'] if args.size != 1
       frmt = PlantumlHelper.check_format(args.first)
       image = PlantumlHelper.plantuml(text, args.first)
       image_tag "/plantuml/#{frmt[:type]}/#{image}#{frmt[:ext]}"
